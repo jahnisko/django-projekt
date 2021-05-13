@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}COVID-19 testování - seznam otestovaných{% endblock %}
+{% block content %}
+<h4 class="text-left bg-info text-white p-2 mb-2">
+    Seznam otestovaných pacientů
+</h4>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  Dosud bylo otestováno celkem <strong>{{num_test}}</strong> pacientů.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Zdr. pojišťovna</th>
+      <th scope="col">Jméno a příjmení</th>
+      <th scope="col">Číslo pojištěnce</th>
+      <th scope="col">Číslo občanského průkazu</th>
+      <th scope="col">Odběrné místo</th>
+        <th scope="col">Návštěva</th>
+      <th scope="col" class="border-left">Laboratoř</th>
+        <th scope="col" class="text-primary">VYHODNOCENÍ</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for pacient in test %}
+    <tr>
+      {% for poj in pojistenec %}
+      {% if poj.osoba.cislo_op == pacient.osoba.cislo_op %}
+        <td>{{ poj.zp.pojistovna }}</td>
+      {% endif %}
+      {% endfor %}
+      <td><a href="{% url 'pacient-detail' pacient.osoba.pk%}">{{ pacient.osoba.jmeno }} {{ pacient.osoba.prijmeni}}</a></td>
+      {% for poj in pojistenec %}
+      {% if poj.osoba.cislo_op == pacient.osoba.cislo_op %}
+        <td>{{ poj.cislo_pojistence }}</td>
+      {% endif %}
+      {% endfor %}
+      <td>{{ pacient.osoba.cislo_op }}</td>
+      <td>{{ pacient.misto.mesto }}</td>
+      <td>{{ pacient.navsteva }}</td>
+      <td class="border-left">{{ pacient.laborator.nazev }}</td>
+      {% if pacient.vyhodnoceni == 'pozitivní' %}
+      <td class="text-danger font-weight-bold">POZITIVNÍ</td>
+      {% else %}
+      <td class="text-success font-weight-bold">NEGATIVNÍ</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

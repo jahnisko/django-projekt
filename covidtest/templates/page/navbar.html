@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-info border-top border-light navbar-light mb-4 nvbr">
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                 <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'index' %}">Úvod</a>
+                </li>
+               <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'seznam_testu' %}">Testovaní</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Vyhledat ...">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Hledej</button>
+            </form>
+        </div>
+    </nav>

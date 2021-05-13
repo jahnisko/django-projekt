@@ -1,0 +1,29 @@
+{% for nakazeny in test %}
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h4 class="card-title" style="text-transform:uppercase">
+                    <a href="{% url 'pacient-detail' nakazeny.osoba.id %}">
+                    <b> {{nakazeny.osoba.jmeno}} {{ nakazeny.osoba.prijmeni }} </b>
+                    </a>
+                </h4>
+                <span class="badge badge-primary">{{ nakazeny.navsteva }}</span>
+                {% if nakazeny.vyhodnoceni == 'pozitivní' %}
+                    <span class="badge badge-danger text-white">POZITIVNÍ</span>
+                {% else %}
+                    <span class="badge badge-success text-white">NEGATIVNÍ</span>
+                {% endif %}
+                    <ul class="text-center karticky p-0">
+                        {% for cislo in cp %}
+                        {% if cislo.osoba.jmeno == nakazeny.osoba.jmeno and cislo.osoba.prijmeni == nakazeny.osoba.prijmeni %}
+                        </a>
+                        <li class="list-group-item"><span class="text-left">Číslo pojištěnce:</span> <span>{{cislo.cislo_pojistence}}</span></li>
+                        {% endif %}
+                        {% endfor %}
+                      <li class="list-group-item">Laboratoř: {{ nakazeny.laborator.nazev }}</li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+

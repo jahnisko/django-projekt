@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Detail testovaného{% endblock %}
+
+{% block content %}
+<div class="container">
+<h4 class="text-left bg-info text-white p-2 mb-2"  style="text-transform:uppercase">
+    {{ osoba_detail.jmeno }} {{ osoba_detail.prijmeni }} (&#10033; {{ osoba_detail.datum_narozeni|date:"d.m.Y" }})
+</h4>
+<div class="row">
+    <div class="col-md-6">
+        <p class="bg-success text-white text-center display-5">Osobní údaje</p>
+        <div class="border">
+            <table>
+            <tr>
+                <td><strong>Bydliště: </strong></td><td>{{ osoba_detail.ulice }}, {{ osoba_detail.psc }}&nbsp; {{ osoba_detail.mesto }}</td>
+            </tr>
+                <tr>
+                    <td><strong>Rodné číslo: </strong></td><td>{{ osoba_detail.rodne_cislo }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Číslo občanského průkazu: </strong></td><td>{{ osoba_detail.cislo_op }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Telefonní číslo: </strong></td><td>+420{{ osoba_detail.tel_cislo }}</td>
+                </tr>
+                <tr>
+                    {% if osoba_detail.email %}
+                    <td><strong>Email: </strong></td><td>{{ osoba_detail.email }}</td>
+                    {% else %}
+                    <td><strong>Email: </strong></td><td><div class="alert alert-danger" role="alert">Pacient nezadal email. </div></td>
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+ <p class="bg-success text-white text-center display-5">Informace o zdravotním pojištění a samotném testování</p>
+        <div class="border">
+            <table>
+                {% for pojistenec in pojistenci %}
+            <tr>
+                {% if pojistenec.osoba.cislo_op == osoba_detail.cislo_op %}
+                <td><strong>Zdravotní pojišťovna: </strong></td><td>{{ pojistenec.zp.pojistovna }}</td>
+            </tr>
+                <tr>
+                    <td><strong>Číslo pojištěnce: </strong></td><td>{{ pojistenec.cislo_pojistence }}</td>
+                </tr>
+                {% endif %}
+                        {% endfor %}
+            </table>
+            <hr>
+            <table>
+                {% for test in testy %}
+            <tr>
+                {% if osoba_detail.cislo_op == test.osoba.cislo_op %}
+                <td><strong>Testován (kdy): </strong></td><td>{{ test.navsteva }}</td>
+            </tr>
+                <tr>
+                <td><strong>Testován (kde):</strong><td>{{test.misto.mesto}}</td></td>
+            </tr>
+                <tr>
+                    <td><strong>Laboratoř: </strong></td><td>{{ test.laborator.nazev }}
+                    {% if test.vyhodnoceni == 'pozitivní' %}
+                    <span class="badge badge-danger text-white">POZITIVNÍ</span>
+                    {% else %}
+                    <span class="badge badge-success text-white">NEGATIVNÍ</span>
+                    {% endif %}
+                </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

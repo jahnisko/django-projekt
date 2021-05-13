@@ -1,6 +1,13 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
 from django.urls import reverse
+
+
+# Vlastní vytvoření metody is_number, která se stará o kontrolu číselného vstupu ve znakovém poli.
+# Využita je například u čísla pojištěnce, jelikož některá rodná čísla začínají 0.
+def is_number(value):
+    if not value.isdigit():
+        raise ValidationError('Chybné číslo. Výskyt nečíselných znaků.')
 
 
 class Osoba(models.Model):
@@ -8,7 +15,7 @@ class Osoba(models.Model):
     prijmeni = models.CharField(max_length=100, verbose_name="Příjmení")
     datum_narozeni = models.DateField(help_text="Zadejte datum narození ve formátu <em>YYYY-MM - DD < / em >.",
                                       verbose_name="Datum narození")
-    rodne_cislo = models.CharField(unique=True, max_length=10, verbose_name="Rodné číslo",
+    rodne_cislo = models.CharField(unique=True, max_length=10, validators=[is_number], verbose_name="Rodné číslo",
                                    help_text="Zadejte rodné číslo bez lomítka.")
     cislo_op = models.PositiveIntegerField(unique=True, validators=[MaxValueValidator(999999999)], verbose_name="Číslo OP")
     mesto = models.CharField(max_length=200, verbose_name="Město")
@@ -55,7 +62,7 @@ class Misto(models.Model):
 
 
 class Pojistenec(models.Model):
-    cislo_pojistence = models.PositiveIntegerField(validators=[MaxValueValidator(9999999999)], verbose_name="Číslo pojištěnce")
+    cislo_pojistence = models.CharField(validators=[is_number], verbose_name="Číslo pojištěnce", max_length=10, unique=True)
     osoba = models.ForeignKey(Osoba, on_delete=models.CASCADE)
     zp = models.ForeignKey(Pojistovna, on_delete=models.CASCADE)
 
@@ -90,7 +97,7 @@ class Test(models.Model):
     laborator = models.ForeignKey(Laborator, on_delete=models.CASCADE, verbose_name="Laboratoř")
 
     class Meta:
-        ordering = ["navsteva"]
+        ordering = ["-vyhodnoceni"]
 
     def __str__(self):
         return f'Navsteva: {str(self.navsteva)}, vyhodnoceni: {self.vyhodnoceni}, {self.osoba}'
