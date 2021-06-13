@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Aktualizace údajů o testu{% endblock %}
+{% block content %}
+<h4 class="text-left bg-info text-white p-2 mb-2">
+    Zadání údajů o provedeném testu
+</h4>
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Aktualizovat</button>
+    </form>
+</div>
+{% endblock %}

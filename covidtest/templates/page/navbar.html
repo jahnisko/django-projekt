@@ -8,8 +8,16 @@
                  <li class="nav-item">
                     <a class="nav-link text-light" href="{% url 'index' %}">Úvod</a>
                 </li>
-               <li class="nav-item">
-                    <a class="nav-link text-light" href="{% url 'seznam_testu' %}">Testovaní</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownIdd" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Testovaní </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownId">
+                        <a class="dropdown-item" href="{% url 'seznam_testu' %}">Seznam testovaných</a>
+                        <a class="dropdown-item" href="{% url 'osoba-create' %}">Nová osoba</a>
+                        <a class="dropdown-item" href="{% url 'pojistovna-create' %}">Nová pojišťovna</a>
+                        <a class="dropdown-item" href="{% url 'misto-create' %}">Nové odběrové místo</a>
+                        <a class="dropdown-item" href="{% url 'laborator-create' %}">Nová laboratoř</a>
+                    </div>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">

@@ -13,11 +13,12 @@ def is_number(value):
 class Osoba(models.Model):
     jmeno = models.CharField(max_length=100, verbose_name="Křestní jméno")
     prijmeni = models.CharField(max_length=100, verbose_name="Příjmení")
-    datum_narozeni = models.DateField(help_text="Zadejte datum narození ve formátu <em>YYYY-MM - DD < / em >.",
+    datum_narozeni = models.DateField(help_text="Zadejte datum narození ve formátu <em>YYYY-MM - DD.</em>",
                                       verbose_name="Datum narození")
     rodne_cislo = models.CharField(unique=True, max_length=10, validators=[is_number], verbose_name="Rodné číslo",
                                    help_text="Zadejte rodné číslo bez lomítka.")
-    cislo_op = models.PositiveIntegerField(unique=True, validators=[MaxValueValidator(999999999)], verbose_name="Číslo OP")
+    cislo_op = models.PositiveIntegerField(unique=True, validators=[MaxValueValidator(999999999)], verbose_name="Číslo OP",
+                                           help_text="Pokud se jedná o nezletilou osobu, která nevlastní OP, zadejte OP zák. zástupce")
     mesto = models.CharField(max_length=200, verbose_name="Město")
     ulice = models.CharField(max_length=220, verbose_name="Ulice včetně č. p.")
     # cislo_popisne = models.CharField(max_length=100, verbose_name="Číslo popisné")
@@ -30,8 +31,18 @@ class Osoba(models.Model):
         ordering = ["prijmeni"]
 
     def __str__(self):
-        return f'Jméno a příjmení: {self.jmeno} {self.prijmeni}, datum narození: {str(self.datum_narozeni)}, ' \
-               f'rodné číslo: {self.rodne_cislo}'
+        return f'{self.jmeno} {self.prijmeni}, {str(self.datum_narozeni)}, ' \
+               f'{self.rodne_cislo}'
+
+    def get_absolute_url(self):
+        return reverse('pojistenec-create')
+    ''' Při stisknutí tlačítka "Uložit" dojde automaticky k přesměrování na stránku k sestavení údajů
+        o pojištěné osobě.
+    '''
+    '''
+    def get_absolute_url(self):
+        return reverse('pojistenec-create')
+'''
 
 
 class Pojistovna(models.Model):
@@ -72,6 +83,9 @@ class Pojistenec(models.Model):
     def __str__(self):
         return f'Číslo pojištěnce: {str(self.cislo_pojistence)}, {self.osoba}'
 
+    def get_absolute_url(self):
+        return reverse('test-create')
+
 
 class Laborator(models.Model):
     nazev = models.CharField(verbose_name="Název laboratoře", max_length=200)
@@ -101,6 +115,10 @@ class Test(models.Model):
 
     def __str__(self):
         return f'Navsteva: {str(self.navsteva)}, vyhodnoceni: {self.vyhodnoceni}, {self.osoba}'
+
+    # Po vložení záznamu testu (poslední fáze údajů o osobě) bude stránka přesměrována na seznam všech otestovaných
+    def get_absolute_url(self):
+        return reverse('seznam_testu')
 
 
 

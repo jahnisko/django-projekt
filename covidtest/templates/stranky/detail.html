@@ -67,6 +67,16 @@
                     {% endif %}
                 </td>
                 </tr>
+                <tr>
+                    <td><strong><abbr title="poznámku může vydat i jiná kvalifikovaná osoba, než je lékař">Poznámka k testu: </abbr></strong></td>
+                     {% if test.poznamka %}
+                    <td><em>{{test.poznamka}}</em></td>
+                    {% else %}
+
+                    {# Když lékař/sestra nezadá poznámku k odběru, zabrazí se tři křížky. #}
+                    <td>&#10005; &#10005; &#10005;</td>
+                    {% endif %}
+                </tr>
                 {% endif %}
                 {% endfor %}
             </table>
@@ -74,7 +84,33 @@
     </div>
 
 </div>
-</div>
-</div>
+<h4 class="text-left bg-danger text-white p-2 mb-2 mt-2"  style="text-transform:uppercase">
+    Administrační sekce
+</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'update-osoba' osoba_detail.pk%}" class="btn btn-warning btn-sm">Aktualizovat osobní údaje</a>
+        </div>
+        <div class="col-md-4 text-center">
+            {% for pojistenec in pojistenci %}
+            {% if pojistenec.osoba.cislo_op == osoba_detail.cislo_op %}
+            <a href="{% url 'update-pojistenec' pojistenec.pk%}" class="btn btn-warning btn-sm">Aktualizovat údaje o zdravotním pojištění</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-4 text-right">
+            {% for test in testy %}
+            {% if test.osoba.cislo_op == osoba_detail.cislo_op %}
+            <a href="{% url 'update-test' test.pk%}" class="btn btn-warning btn-sm">Aktualizovat údaje o testování</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mt-1">
+            <a href="{% url 'delete-osoba' osoba_detail.pk %}" class="btn btn-danger btn-sm">Smazat údaje o pacientovi</a>
+        </div>
+    </div>
 
+</div>
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h4 class="text-left bg-info text-white p-2 mb-2">
+    Opravdu chcete smazat tento záznam: <u>{{ osoba }}</u>
+</h4>
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" value="Ano, smazat.">
+    </form>
+{% endblock %}
