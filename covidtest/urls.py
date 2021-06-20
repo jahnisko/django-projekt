@@ -9,7 +9,8 @@ from covidtest import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('testy/', views.nakazeni_view, name='seznam_testu'),
-    path('testy/<int:pk>', views.NakazenyDetail.as_view(), name='pacient-detail'),
+    #path('testy/<int:pk>', views.NakazenyDetail.as_view(), name='pacient-detail'),
+    path('testy/<int:pk>', views.detail_nakazeneho, name='pacient-detail'),
     path('osoba/create/', views.OsobaCreateView.as_view(), name='osoba-create'),
     path('pojistovna/create/', views.PojistovnaCreateView.as_view(), name='pojistovna-create'),
     path('misto/create/', views.OdberoveMistoCreateView.as_view(), name='misto-create'),
@@ -20,4 +21,5 @@ urlpatterns = [
     path('osoba/<int:pk>/update/', views.OsobaUpdateView.as_view(), name='update-osoba'),
     path('pojistenec/<int:pk>/update/', views.PojistenecUpdateView.as_view(), name='update-pojistenec'),
     path('test/<int:pk>/update/', views.TestUpdateView.as_view(), name="update-test"),
+    path('covid/vyhledano/', views.vyhledavani, name='hledane-polozky'),
 ]

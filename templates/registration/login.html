@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h4 class="text-left bg-info text-white p-2 mb-2">
+    Přihlášení uživatele
+</h4>
+<div class="container">
+    {% if next %}
+    {% if user.is_authenticated %}
+        <p>Váš učet nemá přístup k této stránce. Pro získání přístupu se, prosím, přihlaste.</p>
+    {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{  form|crispy }}
+    <button type="submit" class="btn btn-primary">Přihlásit</button>
+  </form>
+
+
+  <p><a href="{% url 'password_reset' %}" class="mt-1">Zapomněl/a jste heslo?</a></p>
+</div>
+{% endblock %}

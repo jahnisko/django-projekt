@@ -1,0 +1,28 @@
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Vyberte si způsob vstupu do systému</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <p>Pokud již účet máte,</p>
+                          <ul>
+                              <li>zvolte <b>Přihlásit se</b></li>
+                          </ul>
+                          <p>Pokud ještě účet nemáte,</p>
+                          <ul>
+                              <li>zvolte <b>Zaregistrovat se</b></li>
+                          </ul>
+                      </div>
+                      <div class="modal-footer">
+                          <a href="{% url 'login' %}" class="button btn btn-primary">Přihlásit se</a>
+                            <a href="{% url 'signup' %}" class="button btn btn-primary">Zaregistrovat se</a>
+                             <button type="button" class="btn btn-danger" data-dismiss="modal">Zavřít</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        </div>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% if searched %}
+<h4 class="text-left bg-info text-white p-2 mb-2"  style="text-transform:uppercase">
+   Hledaný výraz: "{{ searched }}"
+</h4>
+<div class="list-group container">
+    {% for osoba in osoby %}
+  <a class="button list-group-item list-group-item-action" href="{% url 'pacient-detail' osoba.pk%}">
+      {{osoba.jmeno}} {{ osoba.prijmeni }}, RČ: {{ osoba.rodne_cislo }}
+  </a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="jumbotron">
+  <h1 class="display-4">Nic jste nevyhledal/a.</h1>
+    <p>Pokuste se do vyhledávacího pole něco napsat, a nezapomeňte, že vyhledávací systém této aplikace je stavěn na příjmeních pacientů.</p>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="jumbotron">
+  <h1 class="display-4">Byl/a jste úspěšně odhlášen/a.</h1>
+  <p class="lead">Děkujeme za Váš čas strávený na našich webových stránkách a přejeme pevné zdraví.</p>
+  <hr class="my-4">
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Znovu se přihlásit</a>
+  </p>
+</div>
+{% endblock %}

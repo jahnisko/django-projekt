@@ -33,9 +33,10 @@ class Osoba(models.Model):
     def __str__(self):
         return f'{self.jmeno} {self.prijmeni}, {str(self.datum_narozeni)}, ' \
                f'{self.rodne_cislo}'
-
+    '''
     def get_absolute_url(self):
         return reverse('pojistenec-create')
+    '''
     ''' Při stisknutí tlačítka "Uložit" dojde automaticky k přesměrování na stránku k sestavení údajů
         o pojištěné osobě.
     '''
@@ -71,10 +72,13 @@ class Misto(models.Model):
     def __str__(self):
         return f'Zeměpisná šířka: {str(self.zemepisna_sirka)}, zeměpisná délka: {str(self.zemepisna_delka)}, město: {self.mesto}'
 
+    def get_absolute_url(self):
+        return reverse('index')
+
 
 class Pojistenec(models.Model):
     cislo_pojistence = models.CharField(validators=[is_number], verbose_name="Číslo pojištěnce", max_length=10, unique=True)
-    osoba = models.ForeignKey(Osoba, on_delete=models.CASCADE)
+    osoba = models.OneToOneField(Osoba, on_delete=models.CASCADE)
     zp = models.ForeignKey(Pojistovna, on_delete=models.CASCADE)
 
     class Meta:
@@ -82,9 +86,10 @@ class Pojistenec(models.Model):
 
     def __str__(self):
         return f'Číslo pojištěnce: {str(self.cislo_pojistence)}, {self.osoba}'
-
+    '''
     def get_absolute_url(self):
         return reverse('test-create')
+    '''
 
 
 class Laborator(models.Model):
@@ -95,6 +100,9 @@ class Laborator(models.Model):
 
     def __str__(self):
         return f'Název laboratoře: {self.nazev}'
+
+    def get_absolute_url(self):
+        return reverse('index')
 
 
 class Test(models.Model):
@@ -116,9 +124,12 @@ class Test(models.Model):
     def __str__(self):
         return f'Navsteva: {str(self.navsteva)}, vyhodnoceni: {self.vyhodnoceni}, {self.osoba}'
 
+    def get_absolute_url(self):
+        return reverse('index') 
+    '''
     # Po vložení záznamu testu (poslední fáze údajů o osobě) bude stránka přesměrována na seznam všech otestovaných
     def get_absolute_url(self):
         return reverse('seznam_testu')
-
+    '''
 
 

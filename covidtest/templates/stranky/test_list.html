@@ -43,9 +43,9 @@
       <td>{{ pacient.navsteva }}</td>
       <td class="border-left">{{ pacient.laborator.nazev }}</td>
       {% if pacient.vyhodnoceni == 'pozitivní' %}
-      <td class="text-danger font-weight-bold">POZITIVNÍ</td>
+      <td class="text-danger font-weight-bold"><span class="badge badge-danger text-white">POZITIVNÍ</span></td>
       {% else %}
-      <td class="text-success font-weight-bold">NEGATIVNÍ</td>
+      <td class="text-success font-weight-bold"><span class="badge badge-success text-white">NEGATIVNÍ</span></td>
       {% endif %}
     </tr>
     {% endfor %}

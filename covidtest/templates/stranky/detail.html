@@ -84,6 +84,8 @@
     </div>
 
 </div>
+    {% if user.is_authenticated %}
+    {% if perms.covidtest.delete_osoba and perms.covidtest.change_test and perms.covidtest.change_osoba and perms.covidtest.change_test %}
 <h4 class="text-left bg-danger text-white p-2 mb-2 mt-2"  style="text-transform:uppercase">
     Administrační sekce
 </h4>
@@ -113,4 +115,6 @@
     </div>
 
 </div>
+{% endif %}
+{% endif %}
 {% endblock %}
