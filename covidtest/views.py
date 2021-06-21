@@ -121,7 +121,7 @@ class TestCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 ''' Sekce pohledů pro odstraňování z databáze a úpravu dat v databázi '''
 
 
-class OsobaDeleteView(DeleteView, LoginRequiredMixin, PermissionRequiredMixin):
+class OsobaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Osoba
     template_name = 'stranky/osoba_confirm_delete.html'
     success_url = reverse_lazy('seznam_testu')
@@ -129,7 +129,7 @@ class OsobaDeleteView(DeleteView, LoginRequiredMixin, PermissionRequiredMixin):
     permission_required = 'covidtest.can_delete_osoba'
 
 
-class OsobaUpdateView(UpdateView, LoginRequiredMixin, PermissionRequiredMixin):
+class OsobaUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Osoba
     fields = ['jmeno', 'prijmeni', 'datum_narozeni', 'rodne_cislo', 'cislo_op', 'mesto', 'ulice', 'psc',
               'tel_cislo', 'email']
@@ -139,7 +139,7 @@ class OsobaUpdateView(UpdateView, LoginRequiredMixin, PermissionRequiredMixin):
     permission_required = 'covidtest.can_change_osoba'
 
 
-class PojistenecUpdateView(UpdateView, LoginRequiredMixin, PermissionRequiredMixin):
+class PojistenecUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Pojistenec
     fields = ['cislo_pojistence', 'osoba', 'zp']
     template_name = 'stranky/update/pojistenec_form_update.html'
@@ -148,7 +148,7 @@ class PojistenecUpdateView(UpdateView, LoginRequiredMixin, PermissionRequiredMix
     permission_required = 'covidtest.change_pojistenec'
 
 
-class TestUpdateView(UpdateView, LoginRequiredMixin, PermissionRequiredMixin):
+class TestUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Test
     fields = '__all__'
     template_name = 'stranky/update/test_form_update.html'
