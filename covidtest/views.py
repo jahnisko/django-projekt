@@ -126,7 +126,7 @@ class OsobaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'stranky/osoba_confirm_delete.html'
     success_url = reverse_lazy('seznam_testu')
     login_url = '/accounts/login/'
-    permission_required = 'covidtest.can_delete_osoba'
+    permission_required = 'covidtest.delete_osoba'
 
 
 class OsobaUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -136,7 +136,7 @@ class OsobaUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'stranky/update/osoba_form_update.html'
     success_url = reverse_lazy('seznam_testu')
     login_url = '/accounts/login/'
-    permission_required = 'covidtest.can_change_osoba'
+    permission_required = 'covidtest.change_osoba'
 
 
 class PojistenecUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
